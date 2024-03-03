@@ -1,7 +1,6 @@
 package com.cadastrorh.cadastroRHapi.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "candidatos")
 public class Candidato {
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String sobrenome;
     private String cpf;
