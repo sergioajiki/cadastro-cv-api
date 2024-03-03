@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  mysql:
+    container_name: cadastroRH
+    image: mysql:8.0.32
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cadastrorhdatabase
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=root --execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 20s
+      retries: 10
