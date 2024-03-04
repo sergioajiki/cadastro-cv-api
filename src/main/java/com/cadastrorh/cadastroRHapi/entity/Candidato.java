@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -48,5 +49,8 @@ public class Candidato {
     private String idadeFilhos;
     private String curriculum;
     private String observacao;
-
+    @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL)
+    private List<Experiencia> experieciaList;
+    @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL)
+    private List<Ensino> ensinoList;
 }

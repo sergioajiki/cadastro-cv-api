@@ -19,4 +19,7 @@ public class Ensino {
     private String cidadeEscola;
     private Date dataConclusao;
     private Long cargaHoraria;
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Candidato candidato;
 }
