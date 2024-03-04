@@ -3,6 +3,7 @@ package com.cadastrorh.cadastroRHapi.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ public class Candidato {
     private String name;
     private String sobrenome;
     private String cpf;
-    private String dataNascimento;
+    private Date dataNascimento;
     private String genero;
     private String estadoCivil;
     private Boolean pcd;
