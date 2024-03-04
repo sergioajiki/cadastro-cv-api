@@ -46,5 +46,7 @@ public class Candidato {
     private Double pesoCandidato;
     private Boolean possuiFilhos;
     private String idadeFilhos;
+    private String curriculum;
+    private String observacao;
 
 }
