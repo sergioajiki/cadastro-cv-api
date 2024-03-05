@@ -3,7 +3,7 @@ package com.cadastrorh.cadastroRHapi.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -14,10 +14,10 @@ public class Candidato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String nome;
     private String sobrenome;
     private String cpf;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     private String genero;
     private String estadoCivil;
     private Boolean pcd;
