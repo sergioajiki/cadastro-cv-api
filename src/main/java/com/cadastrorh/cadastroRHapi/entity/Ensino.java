@@ -13,13 +13,13 @@ public class Ensino {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEscola;
-    private Long idCandidato;
+    private String cpfCandidato;
     private String nomeCurso;
     private String nomeEscola;
     private String cidadeEscola;
     private Date dataConclusao;
     private Long cargaHoraria;
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "cpf")
     private Candidato candidato;
 }

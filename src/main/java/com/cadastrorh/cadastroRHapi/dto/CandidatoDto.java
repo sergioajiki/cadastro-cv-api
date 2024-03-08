@@ -13,6 +13,8 @@ public record CandidatoDto(
         String sobrenome,
         @NotBlank(message = "Field cpf can not be null or empty")
         String cpf,
+        @NotBlank(message = "Fiels password can not be null or empty")
+        String password,
         @NotBlank(message = "Field dataNascimento can not be null or empty")
         LocalDate dataNascimento,
         @NotBlank(message = "Field genero can not be null or empty")
@@ -63,6 +65,7 @@ public record CandidatoDto(
                 candidato.getNome(),
                 candidato.getSobrenome(),
                 candidato.getCpf(),
+                candidato.getPassword(),
                 candidato.getDataNascimento(),
                 candidato.getGenero(),
                 candidato.getEstadoCivil(),
@@ -104,6 +107,7 @@ public record CandidatoDto(
             candidato.setNome(candidatoDto.nome);
             candidato.setSobrenome(candidatoDto.sobrenome);
             candidato.setCpf(candidatoDto.cpf);
+            candidato.setPassword(candidatoDto.password);
             candidato.setDataNascimento(candidatoDto.dataNascimento);
             candidato.setGenero(candidatoDto.genero);
             candidato.setEstadoCivil(candidatoDto.estadoCivil);

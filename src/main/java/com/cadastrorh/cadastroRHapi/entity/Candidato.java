@@ -16,6 +16,7 @@ public class Candidato {
     private Long id;
     private String nome;
     private String sobrenome;
+    private String password;
     private String cpf;
     private LocalDate dataNascimento;
     private String genero;
