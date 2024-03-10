@@ -101,7 +101,7 @@ public record CandidatoDto(
         );
     }
 
-    public static Candidato CandidatoDtoToCandidato(CandidatoDto candidatoDto) {
+    public static Candidato candidatoDtoToCandidato(CandidatoDto candidatoDto) {
             Candidato candidato = new Candidato();
             candidato.setId(candidatoDto.id);
             candidato.setNome(candidatoDto.nome);
