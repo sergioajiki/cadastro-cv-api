@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 public record CandidatoDto(
-        Long id,
+//        Long id,
         @NotBlank(message = "Field nome can not be null or empty")
         String nome,
         @NotBlank(message = "Field sobrenome can not be null or empty")
@@ -61,7 +61,7 @@ public record CandidatoDto(
 ) {
     public static CandidatoDto candidatoToCandidatoDto(Candidato candidato) {
         return new CandidatoDto(
-                candidato.getId(),
+//                candidato.getId(),
                 candidato.getNome(),
                 candidato.getSobrenome(),
                 candidato.getCpf(),
@@ -103,7 +103,7 @@ public record CandidatoDto(
 
     public static Candidato candidatoDtoToCandidato(CandidatoDto candidatoDto) {
             Candidato candidato = new Candidato();
-            candidato.setId(candidatoDto.id);
+//            candidato.setId(candidatoDto.id);
             candidato.setNome(candidatoDto.nome);
             candidato.setSobrenome(candidatoDto.sobrenome);
             candidato.setCpf(candidatoDto.cpf);
