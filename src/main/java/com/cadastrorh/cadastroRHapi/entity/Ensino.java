@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 @Getter
 @Setter
@@ -17,7 +18,7 @@ public class Ensino {
     private String nomeCurso;
     private String nomeEscola;
     private String cidadeEscola;
-    private Date dataConclusao;
+    private LocalDate dataConclusao;
     private Long cargaHoraria;
     @ManyToOne
     @JoinColumn(name = "cpf")
