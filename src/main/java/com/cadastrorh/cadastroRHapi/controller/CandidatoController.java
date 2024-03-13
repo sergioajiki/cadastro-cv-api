@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Tag(name = "Candidatos")
 @RequestMapping("/candidato")
@@ -28,6 +30,13 @@ public class CandidatoController {
         CandidatoDto candidatoRegistrado = candidatoService.registerCandidato(candidatoDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(candidatoRegistrado);
+    }
+
+    @GetMapping
+    @Operation(description = "List de candidatos")
+    public ResponseEntity<List<CandidatoDto>> getAllCandidatos(){
+        List<CandidatoDto> allCandidatos = candidatoService.getAllCAndidatos();
+        return ResponseEntity.status(HttpStatus.OK).body(allCandidatos);
     }
 
 }
