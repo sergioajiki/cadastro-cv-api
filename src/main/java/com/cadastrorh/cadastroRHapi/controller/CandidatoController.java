@@ -1,6 +1,7 @@
 package com.cadastrorh.cadastroRHapi.controller;
 
 import com.cadastrorh.cadastroRHapi.dto.CandidatoDto;
+import com.cadastrorh.cadastroRHapi.dto.InfoCandidatoDto;
 import com.cadastrorh.cadastroRHapi.service.CandidatoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,9 +21,11 @@ public class CandidatoController {
         this.candidatoService = candidatoService;
     }
 
-    @GetMapping
-    @Operation(description = "Aguardando implementação do get!!")
-    public String sayHello() {return "Inserir os dados do candidato!!!";}
+//    @GetMapping
+//    @Operation(description = "Aguardando implementação do get!!")
+//    public String sayHello() {
+//        return "Inserir os dados do candidato!!!";
+//    }
 
     @PostMapping
     @Operation(description = "Cadastrar dados do candidato")
@@ -34,9 +37,8 @@ public class CandidatoController {
 
     @GetMapping
     @Operation(description = "List de candidatos")
-    public ResponseEntity<List<CandidatoDto>> getAllCandidatos(){
-        List<CandidatoDto> allCandidatos = candidatoService.getAllCAndidatos();
+    public ResponseEntity<List<InfoCandidatoDto>> getAllCandidatos() {
+        List<InfoCandidatoDto> allCandidatos = candidatoService.getAllCandidatos();
         return ResponseEntity.status(HttpStatus.OK).body(allCandidatos);
     }
-
 }
