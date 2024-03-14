@@ -1,8 +1,10 @@
 package com.cadastrorh.cadastroRHapi.controller;
 
 import com.cadastrorh.cadastroRHapi.dto.CandidatoDto;
+import com.cadastrorh.cadastroRHapi.dto.EnsinoDto;
 import com.cadastrorh.cadastroRHapi.dto.InfoCandidatoDto;
 import com.cadastrorh.cadastroRHapi.service.CandidatoService;
+import com.cadastrorh.cadastroRHapi.service.EnsinoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -16,16 +18,12 @@ import java.util.List;
 @RequestMapping("/candidato")
 public class CandidatoController {
     private final CandidatoService candidatoService;
+    private final EnsinoService ensinoService;
 
-    public CandidatoController(CandidatoService candidatoService) {
+    public CandidatoController(CandidatoService candidatoService, EnsinoService ensinoService) {
         this.candidatoService = candidatoService;
+        this.ensinoService = ensinoService;
     }
-
-//    @GetMapping
-//    @Operation(description = "Aguardando implementação do get!!")
-//    public String sayHello() {
-//        return "Inserir os dados do candidato!!!";
-//    }
 
     @PostMapping
     @Operation(description = "Cadastrar dados do candidato")
@@ -36,9 +34,18 @@ public class CandidatoController {
     }
 
     @GetMapping
-    @Operation(description = "List de candidatos")
+    @Operation(description = "Lista de candidatos")
     public ResponseEntity<List<InfoCandidatoDto>> getAllCandidatos() {
         List<InfoCandidatoDto> allCandidatos = candidatoService.getAllCandidatos();
         return ResponseEntity.status(HttpStatus.OK).body(allCandidatos);
     }
+
+    @PostMapping("/ensino")
+    @Operation(description = "Cadastrar ensino")
+    public ResponseEntity<EnsinoDto> registerEnsino(@RequestBody EnsinoDto ensinoDto) {
+        EnsinoDto ensinoRegistrado = ensinoService.registerEnsino(ensinoDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(ensinoRegistrado);
+    }
 }
+
