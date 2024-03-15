@@ -3,6 +3,7 @@ package com.cadastrorh.cadastroRHapi.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class Candidato {
     private String nome;
     private String sobrenome;
     private String password;
+    @Column(name = "cpf", unique = true)
     private String cpf;
     private LocalDate dataNascimento;
     private String genero;
@@ -50,8 +52,9 @@ public class Candidato {
     private String idadeFilhos;
     private String curriculum;
     private String observacao;
-    @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL)
-    private List<Experiencia> experieciaList;
+    //    @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL)
+//    private List<Experiencia> experieciaList;
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL)
     private List<Ensino> ensinoList;
+
 }

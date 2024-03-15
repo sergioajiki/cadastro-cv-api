@@ -1,22 +1,28 @@
 package com.cadastrorh.cadastroRHapi.service;
 
 import com.cadastrorh.cadastroRHapi.dto.CandidatoDto;
+import com.cadastrorh.cadastroRHapi.dto.EnsinoDto;
 import com.cadastrorh.cadastroRHapi.dto.InfoCandidatoDto;
 import com.cadastrorh.cadastroRHapi.entity.Candidato;
+import com.cadastrorh.cadastroRHapi.entity.Ensino;
 import com.cadastrorh.cadastroRHapi.repository.CandidatoRepository;
+import com.cadastrorh.cadastroRHapi.repository.EnsinoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CandidatoService {
     private final CandidatoRepository candidatoRepository;
+    private final EnsinoRepository ensinoRepository;
 
     @Autowired
-    public CandidatoService(CandidatoRepository candidatoRepository) {
+    public CandidatoService(CandidatoRepository candidatoRepository, EnsinoRepository ensinoRepository) {
         this.candidatoRepository = candidatoRepository;
+        this.ensinoRepository = ensinoRepository;
     }
 
     public CandidatoDto registerCandidato(CandidatoDto candidatoDto) {
@@ -31,6 +37,10 @@ public class CandidatoService {
         List<Candidato> listCandidato = candidatoRepository.findAll();
         List<InfoCandidatoDto> fullList = new ArrayList<>();
         listCandidato.forEach(candidato -> {
+            List<Ensino> ensinoList = candidato.getEnsinoList();
+            List<EnsinoDto> ensinoDtoList = ensinoList.stream()
+                    .map(EnsinoDto::ensinoToEnsinoDto)
+                    .collect(Collectors.toList());
             InfoCandidatoDto infoCandidatoDto = new InfoCandidatoDto(
                     candidato.getId(),
                     candidato.getNome(),
@@ -67,7 +77,8 @@ public class CandidatoService {
                     candidato.getPossuiFilhos(),
                     candidato.getIdadeFilhos(),
                     candidato.getCurriculum(),
-                    candidato.getObservacao()
+                    candidato.getObservacao(),
+                    ensinoDtoList
             );
             fullList.add(infoCandidatoDto);
         });

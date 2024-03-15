@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.Date;
+
 @Getter
 @Setter
 @Entity
@@ -20,7 +21,9 @@ public class Ensino {
     private String cidadeEscola;
     private LocalDate dataConclusao;
     private Long cargaHoraria;
+
     @ManyToOne
-    @JoinColumn(name = "cpf")
+    @JoinColumn(name = "cpf_candidato_fk", referencedColumnName = "cpf")
     private Candidato candidato;
+
 }

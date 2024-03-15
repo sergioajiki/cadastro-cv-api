@@ -32,6 +32,7 @@ public record EnsinoDto(
         ensino.setDataConclusao(ensinoDto.dataConclusao);
         ensino.setCargaHoraria(ensinoDto.cargaHoraria);
 
+
         return ensino;
     }
 }
