@@ -21,8 +21,7 @@ public class EnsinoService {
         ensinoRepository.save(ensinoToSave);
 
         EnsinoDto savedEnsino = EnsinoDto.ensinoToEnsinoDto(ensinoToSave);
+
         return savedEnsino;
     }
-
-
 }
