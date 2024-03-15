@@ -17,6 +17,6 @@ public class Experiencia {
     private String cargoAnterior;
     private String contatoEmpresa;
     @ManyToOne
-    @JoinColumn(name = "cpf")
+    @JoinColumn(name = "cpf_candidato_fk")
     private Candidato candidato;
 }

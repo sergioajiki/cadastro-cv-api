@@ -2,6 +2,7 @@ package com.cadastrorh.cadastroRHapi.dto;
 
 import com.cadastrorh.cadastroRHapi.entity.Candidato;
 import com.cadastrorh.cadastroRHapi.entity.Ensino;
+import com.cadastrorh.cadastroRHapi.entity.Experiencia;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
@@ -46,14 +47,19 @@ public record InfoCandidatoDto(
         String idadeFilhos,
         String curriculum,
         String observacao,
+        List<ExperienciaDto> experienciaList,
         List<EnsinoDto> ensinoList
 
 ) {
     public static InfoCandidatoDto infoCandidatoToInfoCandidatoDto(Candidato candidato) {
         List<Ensino> ensinoList = candidato.getEnsinoList();
         List<EnsinoDto> ensinoDtoList = ensinoList.stream()
-                    .map(EnsinoDto::ensinoToEnsinoDto)
-                    .collect(Collectors.toList());
+                .map(EnsinoDto::ensinoToEnsinoDto)
+                .collect(Collectors.toList());
+        List<Experiencia> experienciaList = candidato.getExperieciaList();
+        List<ExperienciaDto> experienciaDtoList = experienciaList.stream()
+                .map(ExperienciaDto::experienciaToExperienciaDto)
+                .collect(Collectors.toList());
         return new InfoCandidatoDto(
                 candidato.getId(),
                 candidato.getNome(),
@@ -91,6 +97,7 @@ public record InfoCandidatoDto(
                 candidato.getIdadeFilhos(),
                 candidato.getCurriculum(),
                 candidato.getObservacao(),
+                experienciaDtoList,
                 ensinoDtoList
         );
     }
