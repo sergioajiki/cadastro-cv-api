@@ -3,9 +3,8 @@ package com.cadastrorh.cadastroRHapi.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
-import java.util.Date;
+
 
 @Getter
 @Setter
@@ -15,7 +14,8 @@ public class Ensino {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEscola;
-    private String cpfCandidato;
+
+//    private String cpfCandidato;
     private String nomeCurso;
     private String nomeEscola;
     private String cidadeEscola;

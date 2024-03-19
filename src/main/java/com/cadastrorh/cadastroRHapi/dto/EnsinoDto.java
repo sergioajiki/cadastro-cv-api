@@ -1,11 +1,12 @@
 package com.cadastrorh.cadastroRHapi.dto;
 
+import com.cadastrorh.cadastroRHapi.entity.Candidato;
 import com.cadastrorh.cadastroRHapi.entity.Ensino;
 
 import java.time.LocalDate;
 
 public record EnsinoDto(
-//        String cpfCandidato
+        String cpfCandidato,
         String nomeCurso,
         String nomeEscola,
         String cidadeEscola,
@@ -14,7 +15,7 @@ public record EnsinoDto(
 ) {
     public static EnsinoDto ensinoToEnsinoDto(Ensino ensino) {
         return new EnsinoDto(
-//                ensino.getCpfCandidato(),
+                ensino.getCandidato().getCpf(),
                 ensino.getNomeCurso(),
                 ensino.getNomeEscola(),
                 ensino.getCidadeEscola(),
@@ -25,7 +26,8 @@ public record EnsinoDto(
 
     public static Ensino ensinoDtoToEnsino(EnsinoDto ensinoDto) {
         Ensino ensino = new Ensino();
-//        ensino.setCpfCandidato(ensinoDto.cpfCandidato);
+        Candidato candidato = new Candidato();
+        candidato.setCpf(ensinoDto.cpfCandidato);
         ensino.setNomeCurso(ensinoDto.nomeCurso);
         ensino.setNomeEscola(ensinoDto.nomeEscola);
         ensino.setCidadeEscola(ensinoDto.cidadeEscola);
