@@ -56,5 +56,4 @@ public class Candidato {
     private List<Experiencia> experieciaList;
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL)
     private List<Ensino> ensinoList;
-
 }

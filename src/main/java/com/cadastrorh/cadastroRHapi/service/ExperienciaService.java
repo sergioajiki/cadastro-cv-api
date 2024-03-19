@@ -15,7 +15,7 @@ public class ExperienciaService {
         this.experienciaRepository = experienciaRepository;
     }
 
-    public ExperienciaDto registerExperiecia(ExperienciaDto experienciaDto) {
+    public ExperienciaDto registerExperiencia(ExperienciaDto experienciaDto) {
         Experiencia experienciaToSave = ExperienciaDto.experienciaDtoToExperiencia(experienciaDto);
 
         experienciaRepository.save(experienciaToSave);

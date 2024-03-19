@@ -25,5 +25,4 @@ public class Ensino {
     @ManyToOne
     @JoinColumn(name = "cpf_candidato_fk", referencedColumnName = "cpf")
     private Candidato candidato;
-
 }

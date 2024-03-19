@@ -2,9 +2,11 @@ package com.cadastrorh.cadastroRHapi.controller;
 
 import com.cadastrorh.cadastroRHapi.dto.CandidatoDto;
 import com.cadastrorh.cadastroRHapi.dto.EnsinoDto;
+import com.cadastrorh.cadastroRHapi.dto.ExperienciaDto;
 import com.cadastrorh.cadastroRHapi.dto.InfoCandidatoDto;
 import com.cadastrorh.cadastroRHapi.service.CandidatoService;
 import com.cadastrorh.cadastroRHapi.service.EnsinoService;
+import com.cadastrorh.cadastroRHapi.service.ExperienciaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -19,10 +21,12 @@ import java.util.List;
 public class CandidatoController {
     private final CandidatoService candidatoService;
     private final EnsinoService ensinoService;
+    private final ExperienciaService experienciaService;
 
-    public CandidatoController(CandidatoService candidatoService, EnsinoService ensinoService) {
+    public CandidatoController(CandidatoService candidatoService, EnsinoService ensinoService, ExperienciaService experienciaService) {
         this.candidatoService = candidatoService;
         this.ensinoService = ensinoService;
+        this.experienciaService = experienciaService;
     }
 
     @PostMapping
@@ -37,6 +41,7 @@ public class CandidatoController {
     @Operation(description = "Lista de candidatos")
     public ResponseEntity<List<InfoCandidatoDto>> getAllCandidatos() {
         List<InfoCandidatoDto> allCandidatos = candidatoService.getAllCandidatos();
+
         return ResponseEntity.status(HttpStatus.OK).body(allCandidatos);
     }
 
@@ -46,6 +51,14 @@ public class CandidatoController {
         EnsinoDto ensinoRegistrado = ensinoService.registerEnsino(ensinoDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(ensinoRegistrado);
+    }
+
+    @PostMapping("/experiencia")
+    @Operation(description = "Cadastrar experiência")
+    public ResponseEntity<ExperienciaDto> registerExperiencia(@RequestBody ExperienciaDto experienciaDto) {
+        ExperienciaDto experienciaRegistrada = experienciaService.registerExperiencia(experienciaDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(experienciaRegistrada);
     }
 }
 
