@@ -13,7 +13,6 @@ public class Ensino {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEscola;
-
     private String nomeCurso;
     private String nomeEscola;
     private String cidadeEscola;
