@@ -3,7 +3,6 @@ package com.cadastrorh.cadastroRHapi.dto;
 import com.cadastrorh.cadastroRHapi.entity.Candidato;
 import com.cadastrorh.cadastroRHapi.entity.Ensino;
 import com.cadastrorh.cadastroRHapi.entity.Experiencia;
-import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -53,7 +52,6 @@ public record InfoCandidatoDto(
 ) {
     public static InfoCandidatoDto infoCandidatoToInfoCandidatoDto(Candidato candidato) {
         List<Ensino> ensinoList = candidato.getEnsinoList();
-//        System.out.println(ensinoList);
         List<EnsinoDto> ensinoDtoList = ensinoList.stream()
                 .map(EnsinoDto::ensinoToEnsinoDto)
                 .collect(Collectors.toList());
