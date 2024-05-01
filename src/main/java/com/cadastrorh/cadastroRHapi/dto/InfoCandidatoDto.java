@@ -47,20 +47,20 @@ public record InfoCandidatoDto(
         String idadeFilhos,
         String curriculum,
         String observacao,
-//        List<ExperienciaDto> experienciaList
+        List<ExperienciaDto> experienciaList,
         List<EnsinoDto> ensinoList
 
 ) {
     public static InfoCandidatoDto infoCandidatoToInfoCandidatoDto(Candidato candidato) {
         List<Ensino> ensinoList = candidato.getEnsinoList();
-        System.out.println(ensinoList);
+//        System.out.println(ensinoList);
         List<EnsinoDto> ensinoDtoList = ensinoList.stream()
                 .map(EnsinoDto::ensinoToEnsinoDto)
                 .collect(Collectors.toList());
-//        List<Experiencia> experienciaList = candidato.getExperieciaList();
-//        List<ExperienciaDto> experienciaDtoList = experienciaList.stream()
-//                .map(ExperienciaDto::experienciaToExperienciaDto)
-//                .toList();
+        List<Experiencia> experienciaList = candidato.getExperieciaList();
+        List<ExperienciaDto> experienciaDtoList = experienciaList.stream()
+                .map(ExperienciaDto::experienciaToExperienciaDto)
+                .toList();
         return new InfoCandidatoDto(
                 candidato.getId(),
                 candidato.getNome(),
@@ -98,7 +98,7 @@ public record InfoCandidatoDto(
                 candidato.getIdadeFilhos(),
                 candidato.getCurriculum(),
                 candidato.getObservacao(),
-//                experienciaDtoList
+                experienciaDtoList,
                 ensinoDtoList
         );
     }

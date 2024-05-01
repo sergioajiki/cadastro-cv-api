@@ -12,7 +12,6 @@ public class Experiencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idExperiencia;
-    private String cpfCandidato;
     private String empresa;
     private String cargoAnterior;
     private String contatoEmpresa;

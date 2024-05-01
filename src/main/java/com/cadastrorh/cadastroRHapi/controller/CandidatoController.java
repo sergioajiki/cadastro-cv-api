@@ -53,10 +53,10 @@ public class CandidatoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ensinoRegistrado);
     }
 
-    @PostMapping("/experiencia")
+    @PostMapping("/experiencia/{cpf}")
     @Operation(description = "Cadastrar experiência")
-    public ResponseEntity<ExperienciaDto> registerExperiencia(@RequestBody ExperienciaDto experienciaDto) {
-        ExperienciaDto experienciaRegistrada = experienciaService.registerExperiencia(experienciaDto);
+    public ResponseEntity<ExperienciaDto> registerExperiencia(@RequestBody ExperienciaDto experienciaDto, @RequestParam String cpf) throws Exception {
+        ExperienciaDto experienciaRegistrada = experienciaService.registerExperiencia(experienciaDto, cpf);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(experienciaRegistrada);
     }
