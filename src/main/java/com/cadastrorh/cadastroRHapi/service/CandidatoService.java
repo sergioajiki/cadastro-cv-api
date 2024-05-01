@@ -9,6 +9,7 @@ import com.cadastrorh.cadastroRHapi.entity.Ensino;
 import com.cadastrorh.cadastroRHapi.entity.Experiencia;
 import com.cadastrorh.cadastroRHapi.repository.CandidatoRepository;
 import com.cadastrorh.cadastroRHapi.repository.EnsinoRepository;
+import com.cadastrorh.cadastroRHapi.util.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class CandidatoService {
 
     public CandidatoDto registerCandidato(CandidatoDto candidatoDto) {
         Candidato candidatoToSave = CandidatoDto.candidatoDtoToCandidato(candidatoDto);
+        boolean isEmail = EmailValidator.isValidEmail(candidatoToSave.getEmail());
 
         candidatoRepository.save(candidatoToSave);
         CandidatoDto savedCandidato = CandidatoDto.candidatoToCandidatoDto(candidatoToSave);
