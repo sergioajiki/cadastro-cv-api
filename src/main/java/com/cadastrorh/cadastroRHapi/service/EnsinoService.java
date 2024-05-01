@@ -3,6 +3,7 @@ package com.cadastrorh.cadastroRHapi.service;
 import com.cadastrorh.cadastroRHapi.dto.EnsinoDto;
 import com.cadastrorh.cadastroRHapi.entity.Candidato;
 import com.cadastrorh.cadastroRHapi.entity.Ensino;
+import com.cadastrorh.cadastroRHapi.exception.NotFoundException;
 import com.cadastrorh.cadastroRHapi.repository.CandidatoRepository;
 import com.cadastrorh.cadastroRHapi.repository.EnsinoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,11 @@ public class EnsinoService {
         this.candidatoRepository = candidatoRepository;
     }
 
-    public EnsinoDto registerEnsino(EnsinoDto ensinoDto, String cpf) throws Exception {
+    public EnsinoDto registerEnsino(EnsinoDto ensinoDto, String cpf) {
         Ensino ensinoToSave = EnsinoDto.ensinoDtoToEnsino(ensinoDto);
         Optional<Candidato> candidatoOptional = Optional.ofNullable(candidatoRepository.findByCpf(cpf));
         if (candidatoOptional.isEmpty()) {
-            throw new Exception("CPF " + cpf + " does not match any task");
+            throw new NotFoundException("CPF " + cpf + " not found");
         }
         Candidato candidato = candidatoOptional.get();
         ensinoToSave.setCandidato(candidato);

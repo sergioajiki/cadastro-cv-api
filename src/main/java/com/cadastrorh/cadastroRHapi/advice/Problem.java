@@ -11,5 +11,4 @@ public record Problem (
         String message,
         String detail,
         List<ErrorMessageDto> errors
-
 ) {}
