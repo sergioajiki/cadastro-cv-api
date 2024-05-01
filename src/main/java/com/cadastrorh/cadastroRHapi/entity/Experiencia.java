@@ -12,12 +12,12 @@ public class Experiencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idExperiencia;
-//    private String cpfCandidato;
+    private String cpfCandidato;
     private String empresa;
     private String cargoAnterior;
     private String contatoEmpresa;
 
     @ManyToOne
-    @JoinColumn(name = "cpf_candidato_fk", referencedColumnName = "cpf")
+    @JoinColumn(name = "candidato_id", referencedColumnName = "id")
     private Candidato candidato;
 }

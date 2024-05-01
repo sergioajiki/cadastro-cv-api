@@ -15,7 +15,6 @@ public class Ensino {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEscola;
 
-//    private String cpfCandidato;
     private String nomeCurso;
     private String nomeEscola;
     private String cidadeEscola;
@@ -23,6 +22,6 @@ public class Ensino {
     private Long cargaHoraria;
 
     @ManyToOne
-    @JoinColumn(name = "cpf_candidato_fk", referencedColumnName = "cpf")
+    @JoinColumn(name = "candidato_id", referencedColumnName = "id")
     private Candidato candidato;
 }

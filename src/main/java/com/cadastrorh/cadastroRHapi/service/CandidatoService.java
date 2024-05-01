@@ -35,6 +35,7 @@ public class CandidatoService {
         return savedCandidato;
     }
 
+
     public List<InfoCandidatoDto> getAllCandidatos() {
         List<Candidato> listCandidato = candidatoRepository.findAll();
         List<InfoCandidatoDto> fullList = new ArrayList<>();
@@ -43,10 +44,10 @@ public class CandidatoService {
             List<EnsinoDto> ensinoDtoList = ensinoList.stream()
                     .map(EnsinoDto::ensinoToEnsinoDto)
                     .collect(Collectors.toList());
-            List<Experiencia> experienciaList = candidato.getExperieciaList();
-            List<ExperienciaDto> experienciaDtoList = experienciaList.stream()
-                    .map(ExperienciaDto::experienciaToExperienciaDto)
-                    .collect(Collectors.toList());
+//            List<Experiencia> experienciaList = candidato.getExperieciaList();
+//            List<ExperienciaDto> experienciaDtoList = experienciaList.stream()
+//                    .map(ExperienciaDto::experienciaToExperienciaDto)
+//                    .toList();
             InfoCandidatoDto infoCandidatoDto = new InfoCandidatoDto(
                     candidato.getId(),
                     candidato.getNome(),
@@ -84,7 +85,7 @@ public class CandidatoService {
                     candidato.getIdadeFilhos(),
                     candidato.getCurriculum(),
                     candidato.getObservacao(),
-                    experienciaDtoList,
+//                    experienciaDtoList
                     ensinoDtoList
             );
             fullList.add(infoCandidatoDto);
