@@ -7,6 +7,7 @@ import com.cadastrorh.cadastroRHapi.dto.InfoCandidatoDto;
 import com.cadastrorh.cadastroRHapi.entity.Candidato;
 import com.cadastrorh.cadastroRHapi.entity.Ensino;
 import com.cadastrorh.cadastroRHapi.entity.Experiencia;
+import com.cadastrorh.cadastroRHapi.exception.DuplicateEntryException;
 import com.cadastrorh.cadastroRHapi.exception.InvalidEmailFormatException;
 import com.cadastrorh.cadastroRHapi.repository.CandidatoRepository;
 import com.cadastrorh.cadastroRHapi.repository.EnsinoRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +37,15 @@ public class CandidatoService {
         boolean isEmail = EmailValidator.isValidEmail(candidatoToSave.getEmail());
         if(!isEmail) {
             throw new InvalidEmailFormatException("Invalid email format");
+        }
+
+        Optional<Candidato> verifyCpfCandidatoOptional = Optional.ofNullable(candidatoRepository.findByCpf(candidatoToSave.getCpf()));
+        if(verifyCpfCandidatoOptional.isPresent()) {
+            throw new DuplicateEntryException("Cpf already exist");
+        }
+        Optional<Candidato> verifyEmailCandidatoOptional = Optional.ofNullable(candidatoRepository.findByEmail(candidatoToSave.getEmail()));
+        if(verifyEmailCandidatoOptional.isPresent()) {
+            throw new DuplicateEntryException("Email already exist");
         }
 
         candidatoRepository.save(candidatoToSave);

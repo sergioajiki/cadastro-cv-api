@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CandidatoRepository extends JpaRepository<Candidato, Long> {
     Candidato findByCpf(String cpf);
+
+    Candidato findByEmail(String email);
 }
