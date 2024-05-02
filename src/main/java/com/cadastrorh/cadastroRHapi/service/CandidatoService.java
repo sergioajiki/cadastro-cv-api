@@ -31,10 +31,12 @@ public class CandidatoService {
 
     public CandidatoDto registerCandidato(CandidatoDto candidatoDto) {
         Candidato candidatoToSave = CandidatoDto.candidatoDtoToCandidato(candidatoDto);
+
         boolean isEmail = EmailValidator.isValidEmail(candidatoToSave.getEmail());
         if(!isEmail) {
             throw new InvalidEmailFormatException("Invalid email format");
         }
+
         candidatoRepository.save(candidatoToSave);
         CandidatoDto savedCandidato = CandidatoDto.candidatoToCandidatoDto(candidatoToSave);
         return savedCandidato;
