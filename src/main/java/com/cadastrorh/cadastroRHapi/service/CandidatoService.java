@@ -7,6 +7,7 @@ import com.cadastrorh.cadastroRHapi.dto.InfoCandidatoDto;
 import com.cadastrorh.cadastroRHapi.entity.Candidato;
 import com.cadastrorh.cadastroRHapi.entity.Ensino;
 import com.cadastrorh.cadastroRHapi.entity.Experiencia;
+import com.cadastrorh.cadastroRHapi.exception.InvalidEmailFormatException;
 import com.cadastrorh.cadastroRHapi.repository.CandidatoRepository;
 import com.cadastrorh.cadastroRHapi.repository.EnsinoRepository;
 import com.cadastrorh.cadastroRHapi.util.EmailValidator;
@@ -31,7 +32,9 @@ public class CandidatoService {
     public CandidatoDto registerCandidato(CandidatoDto candidatoDto) {
         Candidato candidatoToSave = CandidatoDto.candidatoDtoToCandidato(candidatoDto);
         boolean isEmail = EmailValidator.isValidEmail(candidatoToSave.getEmail());
-
+        if(!isEmail) {
+            throw new InvalidEmailFormatException("Invalid email format");
+        }
         candidatoRepository.save(candidatoToSave);
         CandidatoDto savedCandidato = CandidatoDto.candidatoToCandidatoDto(candidatoToSave);
         return savedCandidato;
