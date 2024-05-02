@@ -1,5 +1,6 @@
 package com.cadastrorh.cadastroRHapi.advice;
 
+import com.cadastrorh.cadastroRHapi.exception.DuplicateEntryException;
 import com.cadastrorh.cadastroRHapi.exception.InvalidEmailFormatException;
 import com.cadastrorh.cadastroRHapi.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,4 +39,16 @@ public class GeneralControllerAdvice {
         );
         return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problem);
     }
+
+    @ExceptionHandler
+    public ResponseEntity<Problem> handleDuplicateEntryException(DuplicateEntryException exception) {
+        Problem problem = new Problem(
+                HttpStatus.CONFLICT.value(),
+                "Duplicate Entry Info",
+                exception.getLocalizedMessage(),
+                null
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(problem);
+    }
+
 }
