@@ -2,6 +2,7 @@ package com.cadastrorh.cadastroRHapi.dto;
 
 import com.cadastrorh.cadastroRHapi.entity.Candidato;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
@@ -15,13 +16,13 @@ public record CandidatoDto(
         String cpf,
         @NotBlank(message = "Fiels password can not be null or empty")
         String password,
-        @NotBlank(message = "Field dataNascimento can not be null or empty")
+        @NotNull(message = "Field dataNascimento can not be null or empty")
         LocalDate dataNascimento,
         @NotBlank(message = "Field genero can not be null or empty")
         String genero,
         @NotBlank(message = "Field estadoCivil can not be null or empty")
         String estadoCivil,
-        @NotBlank(message = "Field pcd can not be null or empty")
+        @NotNull(message = "Field pcd can not be null or empty")
         Boolean pcd,
         @NotBlank(message = "Field dataNascimento can not be null or empty")
         String naturalidade,

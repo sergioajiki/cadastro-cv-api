@@ -9,6 +9,7 @@ import com.cadastrorh.cadastroRHapi.service.EnsinoService;
 import com.cadastrorh.cadastroRHapi.service.ExperienciaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class CandidatoController {
 
     @PostMapping
     @Operation(description = "Cadastrar dados do candidato")
-    public ResponseEntity<CandidatoDto> registerCandidato(@RequestBody CandidatoDto candidatoDto) {
+    public ResponseEntity<CandidatoDto> registerCandidato(@RequestBody @Valid CandidatoDto candidatoDto) {
         CandidatoDto candidatoRegistrado = candidatoService.registerCandidato(candidatoDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(candidatoRegistrado);
