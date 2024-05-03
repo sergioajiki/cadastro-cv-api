@@ -1,10 +1,14 @@
 package com.cadastrorh.cadastroRHapi.dto;
 
 import com.cadastrorh.cadastroRHapi.entity.Admin;
-import com.cadastrorh.cadastroRHapi.entity.Ensino;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public record AdminDto(
+        @NotBlank(message = "Field email can not be null or empty")
         String email,
+        @NotBlank(message = "Field password can not be null or empty")
+        @Size(min = 6, max = 12, message = "Password must be between 6 and 12 characters")
         String password
 ) {
     public static AdminDto adminToAdminDto(Admin admin){

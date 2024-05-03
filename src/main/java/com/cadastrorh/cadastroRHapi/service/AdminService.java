@@ -20,7 +20,7 @@ public class AdminService {
         this.adminRepository = adminRepository;
     }
 
-    public AdminDto registerAdmin(AdminDto adminDto) {
+    public String registerAdmin(AdminDto adminDto) {
         Admin adminToSave = AdminDto.AdminDtoToAdmin(adminDto);
 
         boolean isEmail = EmailValidator.isValidEmail(adminToSave.getEmail());
@@ -35,6 +35,7 @@ public class AdminService {
         adminRepository.save(adminToSave);
         AdminDto savedAdmin = AdminDto.adminToAdminDto(adminToSave);
 
-        return savedAdmin;
+        return savedAdmin.email();
     }
+
 }
