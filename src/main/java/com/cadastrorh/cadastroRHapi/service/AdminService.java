@@ -3,7 +3,9 @@ package com.cadastrorh.cadastroRHapi.service;
 import com.cadastrorh.cadastroRHapi.dto.AdminDto;
 import com.cadastrorh.cadastroRHapi.entity.Admin;
 import com.cadastrorh.cadastroRHapi.exception.DuplicateEntryException;
+import com.cadastrorh.cadastroRHapi.exception.InvalidEmailFormatException;
 import com.cadastrorh.cadastroRHapi.repository.AdminRepository;
+import com.cadastrorh.cadastroRHapi.util.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,12 @@ public class AdminService {
 
     public AdminDto registerAdmin(AdminDto adminDto) {
         Admin adminToSave = AdminDto.AdminDtoToAdmin(adminDto);
+
+        boolean isEmail = EmailValidator.isValidEmail(adminToSave.getEmail());
+        if(!isEmail) {
+            throw new InvalidEmailFormatException("Invalid email format");
+        }
+
         Optional<Admin> adminOptional = Optional.ofNullable(adminRepository.findByEmail(adminDto.email()));
         if (adminOptional.isPresent()) {
             throw new DuplicateEntryException("Email is already registered");
@@ -29,6 +37,4 @@ public class AdminService {
 
         return savedAdmin;
     }
-
-
 }
