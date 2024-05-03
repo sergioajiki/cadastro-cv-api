@@ -27,6 +27,6 @@ public class AdminController {
     public ResponseEntity<String> registerAdmin(@RequestBody @Valid AdminDto adminDto) {
         String adminRegistered = adminService.registerAdmin(adminDto);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Admin" + adminRegistered + " registered");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Success! Admin " + adminRegistered + " registered");
     }
 }
