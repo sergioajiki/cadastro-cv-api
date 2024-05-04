@@ -58,4 +58,13 @@ public class AdminService {
         String token = tokenService.generateToken(admin.getUsername());
         return new TokenDto(token);
     }
+
+    public UserDetails loadAdminByUsername(String username) throws InvalidLoginException {
+        Optional<Admin> adminByUsernameOptional = adminRepository.findByUsername(username);
+        if(adminByUsernameOptional.isEmpty()) {
+            throw new InvalidLoginException("Username or password not found");
+        }
+        UserDetails admin = adminByUsernameOptional.get();
+        return admin;
+    }
 }
