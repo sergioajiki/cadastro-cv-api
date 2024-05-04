@@ -7,6 +7,7 @@ import com.cadastrorh.cadastroRHapi.exception.InvalidEmailFormatException;
 import com.cadastrorh.cadastroRHapi.repository.AdminRepository;
 import com.cadastrorh.cadastroRHapi.util.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -32,6 +33,11 @@ public class AdminService {
         if (adminOptional.isPresent()) {
             throw new DuplicateEntryException("Email is already registered");
         }
+
+        String hashedPassword = new BCryptPasswordEncoder()
+                .encode(adminToSave.getPassword());
+        adminToSave.setPassword(hashedPassword);
+
         adminRepository.save(adminToSave);
         AdminDto savedAdmin = AdminDto.adminToAdminDto(adminToSave);
 
