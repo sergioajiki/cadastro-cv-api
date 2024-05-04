@@ -12,6 +12,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -103,6 +104,20 @@ public class GeneralControllerAdvice {
                 "Token invalid",
                 "Invalid token format",
                 // exception.getMessage(),
+                null
+        );
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(problem);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Problem> handlerInsufficientAuthenticationException(
+            InsufficientAuthenticationException exception,
+            HttpServletRequest request) {
+        Problem problem = new Problem(
+                HttpStatus.FORBIDDEN.value(),
+                "Access Denied",
+                "Authorization is required to access this resource",
+                // exception.getLocalizedMessage(),
                 null
         );
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(problem);
