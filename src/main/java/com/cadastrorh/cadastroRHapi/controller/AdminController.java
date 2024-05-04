@@ -29,4 +29,5 @@ public class AdminController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Success! Admin " + adminRegistered + " registered");
     }
+
 }

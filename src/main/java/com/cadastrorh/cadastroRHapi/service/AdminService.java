@@ -1,12 +1,15 @@
 package com.cadastrorh.cadastroRHapi.service;
 
 import com.cadastrorh.cadastroRHapi.dto.AdminDto;
+import com.cadastrorh.cadastroRHapi.dto.TokenDto;
 import com.cadastrorh.cadastroRHapi.entity.Admin;
 import com.cadastrorh.cadastroRHapi.exception.DuplicateEntryException;
 import com.cadastrorh.cadastroRHapi.exception.InvalidEmailFormatException;
+import com.cadastrorh.cadastroRHapi.exception.InvalidLoginException;
 import com.cadastrorh.cadastroRHapi.repository.AdminRepository;
 import com.cadastrorh.cadastroRHapi.util.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +18,12 @@ import java.util.Optional;
 @Service
 public class AdminService {
     private final AdminRepository adminRepository;
+    private final TokenService tokenService;
 
     @Autowired
-    public AdminService(AdminRepository adminRepository) {
+    public AdminService(AdminRepository adminRepository, TokenService tokenService) {
         this.adminRepository = adminRepository;
+        this.tokenService = tokenService;
     }
 
     public String registerAdmin(AdminDto adminDto) {
@@ -44,4 +49,13 @@ public class AdminService {
         return savedAdmin.email();
     }
 
+    public TokenDto login(UserDetails admin) {
+        Optional<Admin> adminOptional = adminRepository.findByUsername(admin.getUsername());
+        if(adminOptional.isEmpty()) {
+            throw new InvalidLoginException("Username or password not found");
+        }
+
+        String token = tokenService.generateToken(admin.getUsername());
+        return new TokenDto(token);
+    }
 }

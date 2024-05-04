@@ -25,6 +25,7 @@ public class GeneralControllerAdvice {
     public GeneralControllerAdvice(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
+
     @ExceptionHandler
     public ResponseEntity<Problem> handleNotFoundException(NotFoundException exception) {
         Problem problem = new Problem(
@@ -33,7 +34,7 @@ public class GeneralControllerAdvice {
                 exception.getMessage(),
                 null
         );
-        return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(problem);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problem);
     }
 
     @ExceptionHandler
@@ -44,7 +45,7 @@ public class GeneralControllerAdvice {
                 exception.getMessage(),
                 null
         );
-        return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problem);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problem);
     }
 
     @ExceptionHandler
