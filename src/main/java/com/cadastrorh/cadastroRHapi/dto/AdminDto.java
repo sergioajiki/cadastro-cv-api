@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public record AdminDto(
+        @NotBlank(message = "Field username can not be null or empty")
+        String username,
         @NotBlank(message = "Field email can not be null or empty")
         String email,
         @NotBlank(message = "Field password can not be null or empty")
@@ -13,6 +15,7 @@ public record AdminDto(
 ) {
     public static AdminDto adminToAdminDto(Admin admin){
         return new AdminDto(
+                admin.getUsername(),
                 admin.getEmail(),
                 admin.getPassword()
         );
@@ -20,6 +23,7 @@ public record AdminDto(
 
     public static Admin AdminDtoToAdmin(AdminDto adminDto) {
         Admin admin = new Admin();
+        admin.setUsername(adminDto.username);
         admin.setEmail(adminDto.email);
         admin.setPassword(adminDto.password);
 

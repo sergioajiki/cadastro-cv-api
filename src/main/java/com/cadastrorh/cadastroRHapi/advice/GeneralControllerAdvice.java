@@ -3,6 +3,7 @@ package com.cadastrorh.cadastroRHapi.advice;
 import com.cadastrorh.cadastroRHapi.dto.ErrorMessageDto;
 import com.cadastrorh.cadastroRHapi.exception.DuplicateEntryException;
 import com.cadastrorh.cadastroRHapi.exception.InvalidEmailFormatException;
+import com.cadastrorh.cadastroRHapi.exception.InvalidLoginException;
 import com.cadastrorh.cadastroRHapi.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -77,5 +78,16 @@ public class GeneralControllerAdvice {
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problem);
 
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Problem> handleInvalidLoginException(InvalidLoginException exception) {
+        Problem problem = new Problem(
+                HttpStatus.UNAUTHORIZED.value(),
+                "Unauthorized Login",
+                exception.getMessage(),
+                null
+        );
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(problem);
     }
 }
