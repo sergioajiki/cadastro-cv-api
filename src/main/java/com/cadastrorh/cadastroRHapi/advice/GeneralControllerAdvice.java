@@ -1,6 +1,7 @@
 package com.cadastrorh.cadastroRHapi.advice;
 
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.cadastrorh.cadastroRHapi.dto.ErrorMessageDto;
 import com.cadastrorh.cadastroRHapi.exception.DuplicateEntryException;
@@ -17,6 +18,7 @@ import org.springframework.security.authentication.InsufficientAuthenticationExc
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,5 +137,38 @@ public class GeneralControllerAdvice {
                 null
         );
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(problem);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Problem> handleNotCaught(Exception exception) {
+        Problem problem = new Problem(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "Internal Server Error",
+                exception.getMessage(),
+                null
+        );
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(problem);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Problem> handleSignatureVerificationException(SignatureVerificationException exception) {
+        Problem problem = new Problem(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "The Token's Signature resulted invalid",
+                exception.getMessage(),
+                null
+        );
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(problem);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Problem> handleInvalidType(MethodArgumentTypeMismatchException exception) {
+        Problem problem = new Problem(
+                HttpStatus.BAD_REQUEST.value(),
+                "Invalid Type Format",
+                exception.getMessage(),
+                null
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problem);
     }
 }

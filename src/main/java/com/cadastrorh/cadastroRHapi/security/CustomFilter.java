@@ -1,6 +1,7 @@
 package com.cadastrorh.cadastroRHapi.security;
 
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.cadastrorh.cadastroRHapi.advice.Problem;
 import com.cadastrorh.cadastroRHapi.service.AdminService;
@@ -52,7 +53,7 @@ public class CustomFilter extends GenericFilter {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-            } catch (TokenExpiredException | JWTDecodeException exception) {
+            } catch (TokenExpiredException | JWTDecodeException | SignatureVerificationException exception) {
                 System.out.println(exception.getMessage());
                 handlerExceptionResolver.resolveException((HttpServletRequest) request,
                         (HttpServletResponse) response, null, exception);
