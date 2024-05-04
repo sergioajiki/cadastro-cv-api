@@ -4,9 +4,11 @@ import com.cadastrorh.cadastroRHapi.dto.AdminDto;
 import com.cadastrorh.cadastroRHapi.dto.LoginDto;
 import com.cadastrorh.cadastroRHapi.dto.TokenDto;
 import com.cadastrorh.cadastroRHapi.service.AdminService;
+import com.cadastrorh.cadastroRHapi.service.TokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,12 +27,15 @@ public class AdminController {
     private final AdminService adminService;
     private final AuthenticationManager authenticationManager;
 
-    public AdminController(AdminService adminService, AuthenticationManager authenticationManager) {
+    @Autowired
+    public AdminController(
+            AdminService adminService,
+            AuthenticationManager authenticationManager) {
         this.adminService = adminService;
         this.authenticationManager = authenticationManager;
     }
 
-    @PostMapping
+    @PostMapping("/cadastro")
     @Operation(description = "Cadastra o administrador")
     public ResponseEntity<String> registerAdmin(@RequestBody @Valid AdminDto adminDto) {
         String adminRegistered = adminService.registerAdmin(adminDto);

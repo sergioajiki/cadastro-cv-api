@@ -10,13 +10,14 @@ import com.cadastrorh.cadastroRHapi.repository.AdminRepository;
 import com.cadastrorh.cadastroRHapi.util.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class AdminService {
+public class AdminService implements UserDetailsService {
     private final AdminRepository adminRepository;
     private final TokenService tokenService;
 
@@ -46,7 +47,7 @@ public class AdminService {
         adminRepository.save(adminToSave);
         AdminDto savedAdmin = AdminDto.adminToAdminDto(adminToSave);
 
-        return savedAdmin.email();
+        return savedAdmin.username();
     }
 
     public TokenDto login(UserDetails admin) {
@@ -59,7 +60,8 @@ public class AdminService {
         return new TokenDto(token);
     }
 
-    public UserDetails loadAdminByUsername(String username) throws InvalidLoginException {
+    @Override
+    public UserDetails loadUserByUsername(String username) throws InvalidLoginException {
         Optional<Admin> adminByUsernameOptional = adminRepository.findByUsername(username);
         if(adminByUsernameOptional.isEmpty()) {
             throw new InvalidLoginException("Username or password not found");

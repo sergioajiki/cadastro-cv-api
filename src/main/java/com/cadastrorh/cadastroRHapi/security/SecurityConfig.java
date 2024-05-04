@@ -51,6 +51,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorize -> authorize
                                 .requestMatchers(HttpMethod.POST, "/admin/login").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/admin/cadastro").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/candidato").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/ensino/{cpf}").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/experiencia/{cpf}").permitAll()
                                 .requestMatchers("/health").permitAll()
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                                 .anyRequest().authenticated()

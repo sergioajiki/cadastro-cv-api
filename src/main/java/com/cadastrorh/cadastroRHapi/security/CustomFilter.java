@@ -48,7 +48,7 @@ public class CustomFilter extends GenericFilter {
         if (token.isPresent()) {
             try {
                 String subject = tokenService.validateToken(token.get());
-                UserDetails userDetails = adminService.loadAdminByUsername(subject);
+                UserDetails userDetails = adminService.loadUserByUsername(subject);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
