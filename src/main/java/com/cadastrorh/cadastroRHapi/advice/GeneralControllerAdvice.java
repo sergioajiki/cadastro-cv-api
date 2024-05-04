@@ -1,6 +1,7 @@
 package com.cadastrorh.cadastroRHapi.advice;
 
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.cadastrorh.cadastroRHapi.dto.ErrorMessageDto;
 import com.cadastrorh.cadastroRHapi.exception.DuplicateEntryException;
 import com.cadastrorh.cadastroRHapi.exception.InvalidEmailFormatException;
@@ -104,6 +105,19 @@ public class GeneralControllerAdvice {
                 "Token invalid",
                 "Invalid token format",
                 // exception.getMessage(),
+                null
+        );
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(problem);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Problem> handleTokenExpiredException(
+            TokenExpiredException exception,
+            HttpServletRequest request) {
+        Problem problem = new Problem(
+                HttpStatus.FORBIDDEN.value(),
+                "Token invalid or expired",
+                exception.getMessage(),
                 null
         );
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(problem);
