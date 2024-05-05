@@ -17,10 +17,15 @@ Esta é a documentação da API Cadastro RH, desenvolvida em Java Spring Boot, u
 
 ### Candidato
 
-#### Listar Candidatos
+#### Listar Todos os Candidatos
 - **Método:** GET
-- **Rota:** /candidato
-- **Descrição:** Retorna uma lista de candidatos cadastrados. Um token fornecido no login é necessário.
+- **Rota:** /candidato/all
+- **Descrição:** Retorna uma lista de candidatos cadastrados. Para acessar este endpoint, é necessário fornecer um token de autenticação recebido no login.
+
+#### Busca Candidatos por Nome
+- **Método:** GET
+- **Rota:** /candidato/nome/{nome}
+- **Descrição:** Este endpoint retorna uma lista de candidatos que correspondem a um determinado nome. Se nenhum candidato for encontrado, o endpoint retorna um array vazio. Para acessar este endpoint, é necessário fornecer um token de autenticação recebido no login.
 
 #### Cadastrar Candidato
 - **Método:** POST
