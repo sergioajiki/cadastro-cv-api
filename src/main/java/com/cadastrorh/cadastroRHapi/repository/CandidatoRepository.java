@@ -13,4 +13,6 @@ public interface CandidatoRepository extends JpaRepository<Candidato, Long> {
     Candidato findByEmail(String email);
 
     List<Candidato> findByNomeContainingIgnoreCase(String nome);
+
+    List<Candidato> findByNomeContainingIgnoreCaseAndSobrenomeContaining(String nome, String sobrenome);
 }

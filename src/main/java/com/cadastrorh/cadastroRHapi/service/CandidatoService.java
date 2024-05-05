@@ -12,6 +12,7 @@ import com.cadastrorh.cadastroRHapi.exception.InvalidEmailFormatException;
 import com.cadastrorh.cadastroRHapi.repository.CandidatoRepository;
 import com.cadastrorh.cadastroRHapi.repository.EnsinoRepository;
 import com.cadastrorh.cadastroRHapi.util.EmailValidator;
+import com.cadastrorh.cadastroRHapi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -111,8 +112,11 @@ public class CandidatoService {
         return fullList;
     }
 
-    public List<InfoCandidatoDto> getCandidatosByNome(String nome) {
-        List<Candidato> candidatos = candidatoRepository.findByNomeContainingIgnoreCase(nome);
+    public List<InfoCandidatoDto> getCandidatosByNome(String nomeCompleto) {
+        String[] splitNome = StringUtil.splitNomeSobrenome(nomeCompleto);
+        String nome = splitNome[0];
+        String sobrenome = splitNome[1];
+        List<Candidato> candidatos = candidatoRepository.findByNomeContainingIgnoreCaseAndSobrenomeContaining(nome, sobrenome);
         List<InfoCandidatoDto> candidatosByNomeList = new ArrayList<>();
 
         for (Candidato candidato : candidatos) {

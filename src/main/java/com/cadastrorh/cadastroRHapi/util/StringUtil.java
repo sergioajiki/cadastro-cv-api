@@ -2,12 +2,9 @@ package com.cadastrorh.cadastroRHapi.util;
 
 public class StringUtil {
     public static String[] splitNomeSobrenome(String nomeCompleto) {
-        int indiceEspaco = nomeCompleto.indexOf(' ');
-        if (indiceEspaco == -1) {
-            return new String[]{nomeCompleto};
-        }
-        String nome = nomeCompleto.substring(0, indiceEspaco);
-        String sobrenome = nomeCompleto.substring(indiceEspaco + 1);
+        String[] splitNomeCompleto = nomeCompleto.split(" ", 2);
+        String nome = splitNomeCompleto[0];
+        String sobrenome = splitNomeCompleto.length > 1 ? splitNomeCompleto[1] : "";
 
         return new String[]{nome, sobrenome};
     }
