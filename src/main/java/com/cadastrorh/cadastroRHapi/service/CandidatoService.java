@@ -35,16 +35,16 @@ public class CandidatoService {
         Candidato candidatoToSave = CandidatoDto.candidatoDtoToCandidato(candidatoDto);
 
         boolean isEmail = EmailValidator.isValidEmail(candidatoToSave.getEmail());
-        if(!isEmail) {
+        if (!isEmail) {
             throw new InvalidEmailFormatException("Invalid email format");
         }
 
         Optional<Candidato> verifyCpfCandidatoOptional = Optional.ofNullable(candidatoRepository.findByCpf(candidatoToSave.getCpf()));
-        if(verifyCpfCandidatoOptional.isPresent()) {
+        if (verifyCpfCandidatoOptional.isPresent()) {
             throw new DuplicateEntryException("Cpf already exist");
         }
         Optional<Candidato> verifyEmailCandidatoOptional = Optional.ofNullable(candidatoRepository.findByEmail(candidatoToSave.getEmail()));
-        if(verifyEmailCandidatoOptional.isPresent()) {
+        if (verifyEmailCandidatoOptional.isPresent()) {
             throw new DuplicateEntryException("Email already exist");
         }
 
@@ -109,5 +109,63 @@ public class CandidatoService {
             fullList.add(infoCandidatoDto);
         });
         return fullList;
+    }
+
+    public List<InfoCandidatoDto> getCandidatosByNome(String nome) {
+        List<Candidato> candidatos = candidatoRepository.findByNomeContainingIgnoreCase(nome);
+        List<InfoCandidatoDto> candidatosByNomeList = new ArrayList<>();
+
+        for (Candidato candidato : candidatos) {
+            List<Ensino> ensinoList = candidato.getEnsinoList();
+            List<EnsinoDto> ensinoDtoList = ensinoList.stream()
+                    .map(EnsinoDto::ensinoToEnsinoDto)
+                    .toList();
+            List<Experiencia> experienciaList = candidato.getExperieciaList();
+            List<ExperienciaDto> experienciaDtoList = experienciaList.stream()
+                    .map(ExperienciaDto::experienciaToExperienciaDto)
+                    .toList();
+            InfoCandidatoDto infoCandidatoDto = new InfoCandidatoDto(
+                    candidato.getId(),
+                    candidato.getNome(),
+                    candidato.getSobrenome(),
+                    candidato.getCpf(),
+                    candidato.getDataNascimento(),
+                    candidato.getGenero(),
+                    candidato.getEstadoCivil(),
+                    candidato.getPcd(),
+                    candidato.getNaturalidade(),
+                    candidato.getTelCandidato(),
+                    candidato.getEmail(),
+                    candidato.getCep(),
+                    candidato.getEstado(),
+                    candidato.getCidade(),
+                    candidato.getBairro(),
+                    candidato.getEndereco(),
+                    candidato.getNumero(),
+                    candidato.getComplemento(),
+                    candidato.getContatoA(),
+                    candidato.getTelContatoA(),
+                    candidato.getContatoB(),
+                    candidato.getTelContatoB(),
+                    candidato.getFoto(),
+                    candidato.getPretensaoSalarial(),
+                    candidato.getPossuiEmprego(),
+                    candidato.getCargoPretendido(),
+                    candidato.getTempoExperiencia(),
+                    candidato.getPossuiCnh(),
+                    candidato.getCategoriaCnh(),
+                    candidato.getPossuiVeiculo(),
+                    candidato.getAlturaCandidato(),
+                    candidato.getPesoCandidato(),
+                    candidato.getPossuiFilhos(),
+                    candidato.getIdadeFilhos(),
+                    candidato.getCurriculum(),
+                    candidato.getObservacao(),
+                    experienciaDtoList,
+                    ensinoDtoList
+            );
+            candidatosByNomeList.add(infoCandidatoDto);
+        }
+        return candidatosByNomeList;
     }
 }

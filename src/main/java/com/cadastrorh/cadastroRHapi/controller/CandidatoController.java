@@ -30,20 +30,27 @@ public class CandidatoController {
         this.experienciaService = experienciaService;
     }
 
+    @GetMapping("/all")
+    @Operation(description = "Lista todos os candidatos")
+    public ResponseEntity<List<InfoCandidatoDto>> getAllCandidatos() {
+        List<InfoCandidatoDto> allCandidatos = candidatoService.getAllCandidatos();
+
+        return ResponseEntity.status(HttpStatus.OK).body(allCandidatos);
+    }
+
+    @GetMapping("/nome/{nome}")
+    @Operation(description = "Lista de candidatos por nome")
+    public ResponseEntity<List<InfoCandidatoDto>> getCandidatosByNome(@RequestParam String nome) {
+        List<InfoCandidatoDto> candidatosByNome = candidatoService.getCandidatosByNome(nome);
+
+        return ResponseEntity.status(HttpStatus.OK).body(candidatosByNome);
+    }
     @PostMapping
     @Operation(description = "Cadastrar dados do candidato")
     public ResponseEntity<CandidatoDto> registerCandidato(@RequestBody @Valid CandidatoDto candidatoDto) {
         CandidatoDto candidatoRegistrado = candidatoService.registerCandidato(candidatoDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(candidatoRegistrado);
-    }
-
-    @GetMapping
-    @Operation(description = "Lista de candidatos")
-    public ResponseEntity<List<InfoCandidatoDto>> getAllCandidatos() {
-        List<InfoCandidatoDto> allCandidatos = candidatoService.getAllCandidatos();
-
-        return ResponseEntity.status(HttpStatus.OK).body(allCandidatos);
     }
 
     @PostMapping("/ensino/{cpf}")
@@ -61,5 +68,6 @@ public class CandidatoController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(experienciaRegistrada);
     }
+
 }
 
